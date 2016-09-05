@@ -1,0 +1,10 @@
+Victor Nguyen
+AnhToan Nguyen
+HW0 
+
+  We are looking to create a web application that allows the user to create their own workout programs. We intend to set up a baseline of
+default workouts but also give the chance for the user to input or search for their own workouts. The application will utilize certain API's
+to provide information such as form and suggest rep ranges, such as tutorials to do the certain workout. Using D3.js we can implement a progression table,
+everytime the user has clear the set ranges for their workout, this should allow the user to see their progress over a certain amount of time.
+The application will in the end supply a user interface to implement their own personalized workout program, track how many sets and rep they complete,
+as well as check off whether they completed the sets, and then shows the progression of the user to see how much weight had been accomplished. 
