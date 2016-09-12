@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="main.css">
+	</head>
+	<body>
+		<br>
+		<form>
+			<h1>Select Workout:
+				<select id="SelectedWorkout"> <!--Allows selection of certain types of workouts for to be inputted in the program-->
+					<option selected="selected">Squats</option>
+					<option>Bench Press</options>
+					<option>Deadlifts</options>
+					<option>Shoulder Press</options>
+					<option>Barbell Row</options>
+					<option>Pull Ups</options>
+					<option>Front Squats</options>
+					<option>Dumbell Press</options>
+				</select>
+			</h1>
+			<p>
+				<label>Enter number of sets for this workout: <!-- Number of sets to input-->
+					<input id="SetNumber" type="number" name="sets">
+				</label>
+			</p>
+			<p>
+				<label>Enter number of reps for this workout: <!-- Number of reps to input-->
+					<input id="RepNumber" type="number" name="reps">
+				</label>
+			</p>
+		</form>
+		<!-- <input type="submit" value="Add to Program"> -->
+		<!-- Button adds workout to program list -->
+		<button onclick="createSetxRep()">Add to Program</button>
+		<!-- Logout button takes user back to front page -->
+		<form action="index.html">
+			<input type="submit" value="Logout" />
+		</form>
+
+		<br> 
+		<!-- Gets data from input and display in a table -->
+		<script>
+			function createSetxRep(){
+				var table = document.getElementById("myProgram");
+				var row = table.insertRow(-1);
+				var workout = row.insertCell(0);
+				var set = row.insertCell(1);
+				var rep = row.insertCell(2);
+				workout.innerHTML = document.getElementById("SelectedWorkout").value;
+				set.innerHTML = document.getElementById("SetNumber").value;
+				rep.innerHTML = document.getElementById("RepNumber").value;
+
+			}
+		</script>
+		<!-- Categories for table -->
+		<p>
+			<aside>
+				<table id="myProgram">
+					<tr>
+						<td>Workout</td>
+						<td>Sets</td>
+						<td>Reps</td>
+					</tr>
+				</table>
+			</aside>
+		</p>
+	</body>
+</html>
