@@ -1,0 +1,42 @@
+table, td {border: 1px solid red;}
+body {background-color: black;}
+h1, h2, h3, label, td, li, ul {color: red;}
+input:invalid{
+	border: 3px solid blue;
+}
+a:link{
+	color:red;
+}
+a:hover{
+	color:blue;
+}
+a:visited{
+	color:yellow;
+}
+form.loginPage {
+		padding-top: 100px;
+    }
+
+span.barbell{
+	position: absolute;
+	text-align: center;
+	opacity: 0.5;
+	z-index: -1;
+}
+h1.title {
+	transition: background-color 2s;
+}
+h1.title:hover {
+	color: white;
+	background-color: red;
+}
+p.conquer {
+	transition: transform 2s;
+}
+p.conquer:hover {
+	transform: scale(1.2);
+}
+p.links{
+	position:absolute;
+	left: 0px;
+}
