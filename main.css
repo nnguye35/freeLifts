@@ -4,7 +4,9 @@ h1, h2, h3, label, td, li, ul {color: red;}
 input:invalid{
 	border: 3px solid blue;
 }
-a:link{
+.link{
+	width: 100%;
+    height: 2000px;
 	color:red;
 }
 a:hover{
@@ -39,4 +41,17 @@ p.conquer:hover {
 p.links{
 	position:absolute;
 	left: 0px;
+}
+
+.login {
+    width: 100%;
+    height: 2000px;
+    background: black;
+}
+.howTos {
+    width: 100%;
+    height: 2000px;
+	color: red;
+	background: black;
+
 }

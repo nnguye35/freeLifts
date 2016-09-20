@@ -32,13 +32,15 @@
 		<!-- <input type="submit" value="Add to Program"> -->
 		<!-- Button adds workout to program list -->
 		<button onclick="createSetxRep()">Add to Program</button>
+		<br>
 		<!-- Logout button takes user back to front page -->
 		<form action="index.html">
 			<input type="submit" value="Logout" />
 		</form>
 
-		<br> 
+		<br> 	
 		<!-- Gets data from input and display in a table -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 		<script>
 			function createSetxRep(){
 				var table = document.getElementById("myProgram");
@@ -46,11 +48,25 @@
 				var workout = row.insertCell(0);
 				var set = row.insertCell(1);
 				var rep = row.insertCell(2);
+				var delButton = row.insertCell(3);
 				workout.innerHTML = document.getElementById("SelectedWorkout").value;
 				set.innerHTML = document.getElementById("SetNumber").value;
 				rep.innerHTML = document.getElementById("RepNumber").value;
+				//added a delete button into the table
+				delButton.innerHTML = '<input id="deleteButton" type="button" value="Delete" onclick="deleteRow(this)" >';
+
 
 			}
+			//New delete function to delete elemenet dynamically from the table with am eventhandler to confirm deletion of element
+			function deleteRow(r) {
+				var i = r.parentNode.parentNode.rowIndex;
+				if (confirm("Are you sure?")) {
+    				document.getElementById("myProgram").deleteRow(i); 
+    			}
+   				return false;
+    			document.getElementById("myProgram").deleteRow(i);
+			}
+
 		</script>
 		<!-- Categories for table -->
 		<p>

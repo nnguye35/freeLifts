@@ -17,16 +17,22 @@
 			<h3>
 				<p>
 					This site allows users to build and create their own workout regiments or programs, 
-					please feel free to use this applicaiton to build a healthy lifestyle of improve
+					please feel free to use this application to build a healthy lifestyle of improve
 					on your own programs.
 				</p>
 			</h3>
 			<h2>Build your own program!</h2>
 			<!-- Start button -->
-			<form action="loginPage.html">
+			<!-- <form class='first' action="loginPage.html">
 				<input type="submit" value="Start Here!" />
-			</form>
-			
+			</form> -->
+			<a href="#link">Go to helpful links</a>
+			<br>
+			<a href="#howTos">How to use</a>
+			<br>
+			<br>
+			<br>
+			<div class="first"><button id="click" type="button">Start Here!</button></div>
 			<br>
 			<br>
 			<!-- Image with hover effects -->
@@ -34,8 +40,10 @@
 				<img src="conquer.jpg" height="50%" width="50%">
 			</p>   
 		</div>
+		
 	</body>
 	<body>
+		<div class = "link" id = "link">
 		<h3>For some useful workout tips check out these sources!</h3>
 		<p>
 			<ul>
@@ -43,5 +51,39 @@
 				<li><a href="https://www.youtube.com/channel/UC0ASolYU_Yh3yShLFQC0stg">Strength Camp Channel</a></li>
 			</ul>
 		</p>
+		</div>
+
+		<div class="howTos" id="howTos">How to use: SPACEHOLDER</div>
+		<!-- Moved login page into just a login area to be moved to dynamically using scroll -->
+		<div class="login" id="div1">
+			<p>
+			<section class="loginform">
+				<!-- Form that checks email and password format -->
+				<form class="loginPage" name="login" action="programGenerator.html" 
+									method="get" accept-charset="utf-8">
+					<font size="8">
+					<!-- Email format check -->
+					<li><label for="usermail">Email: </label>
+					<input type="email" name="usermail" placeholder="yourname@email.com" 
+								required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></li>
+					<!-- Any password will work for now -->
+					<li><label for="password">Password: </label>
+					<input type="password" name="password" placeholder="password" required></li>
+					<li><input type="submit" value="Login"></li>
+				</form>
+			</section>
+		</p>
+	</div>
 	</body>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function (){
+            $("#click").click(function (){
+                $('html, body').animate({
+                    scrollTop: $("#div1").offset().top
+                }, 1000);
+            });
+        });
+    </script>
 </html>	
