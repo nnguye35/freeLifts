@@ -62,20 +62,49 @@
 				<form class="loginPage" name="login" action="programGenerator.html" 
 									method="get" accept-charset="utf-8">
 					<font size="8">
+					
+					
+					<!-- Username format check -->
+					<!--
+					<li><label for="username"> Username: </label>
+					<input type="text" id="username" name="username" placeholder="username"
+								required pattern="[a-z0-9._]+"></li>
+					-->
+					
 					<!-- Email format check -->
+					
 					<li><label for="usermail">Email: </label>
-					<input type="email" name="usermail" placeholder="yourname@email.com" 
+					<input type="email" id="email" name="email" placeholder="yourname@email.com" 
 								required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></li>
+					
+
+							
 					<!-- Any password will work for now -->
 					<li><label for="password">Password: </label>
-					<input type="password" name="password" placeholder="password" required></li>
-					<li><input type="submit" value="Login"></li>
+					<input type="password" id="password" name="password" placeholder="password" required></li>
+					
+					
+					<!-- Login Button -->
+					<!-- <li><input type="submit" id="loginButton" value="Login"/> -->
+					
+					<input type="button" id="loginButton" value="Login"/>
+					
 				</form>
+				
+				
+				<!-- Registration Button -->
+				<form action="registration.html">
+					<input type="submit" value="Register" />
+				</form>
+
+				
+				
 			</section>
-		</p>
-	</div>
+			</p>
+		</div>
 	</body>
 
+	<!-- JQuery Scripts -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
         $(document).ready(function (){
@@ -86,4 +115,38 @@
             });
         });
     </script>
+	
+	<!-- Firebase Scripts -->
+	<script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAHLeFFW2LBF4dyNH7KXhv5T3S08W28H3M",
+			authDomain: "freeliftsproject-47742.firebaseapp.com",
+			databaseURL: "https://freeliftsproject-47742.firebaseio.com",
+			storageBucket: "freeliftsproject-47742.appspot.com",
+			messagingSenderId: "453491711849"
+		};
+		firebase.initializeApp(config);
+		// End Initialize Firebase
+
+		
+		
+		
+		$("#loginButton").click(function() {
+			var loginRef = firebase.database().ref("Users");
+			loginRef.orderByChild("Email").on("child_added", function(snapshot) {
+				if (snapshot.val().Email == $('[name=email]').val()) {
+					loginRef.orderByChild("Password").on("child_added", function(snapshot) {
+						if (snapshot.val().Password == $('[name=password]').val()) {
+							window.location.href='programGenerator.html';
+						}
+					});
+				}
+			});
+		});
+		
+		
+	</script>
+	
 </html>	
