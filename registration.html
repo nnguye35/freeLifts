@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link rel="stylesheet" type="text/css" href="main.css">
+	</head>
+	
+	<body>
+		<div class="registration" id="div1">
+			<p>
+			<section class="registrationform">
+				<!-- Form that checks email and password format -->
+				<form class="registrationPage" name="registration" action="index.html" 
+									method="get" accept-charset="utf-8">
+					<font size="8">
+					
+					<!-- Username format check -->
+					<li><label for="username"> Username: </label>
+					<input type="text" id="username" name="username" placeholder="username"
+								required pattern="[a-z0-9._]+"></li>
+					
+					<!-- Email format check -->
+					<li><label for="usermail">Email: </label>
+					<input type="email" id="email" name="usermail" placeholder="yourname@email.com" 
+								required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></li>
+								
+					<!-- Any password will work for now -->
+					<li><label for="password">Password: </label>
+					<input type="password" id="password" name="password" placeholder="password" required></li>
+					
+					<!--<li><input type="submit" value="Login"</li>-->
+					
+					<!--<input type="submit" id="registerButton" value="Register-->
+					<!--<input type="button" id="registerButton" value="Register">-->
+					
+					<input type="button" id="registerButton" value="Register"/>
+					
+					
+					
+				</form>
+				
+				<form action="index.html">
+					<input type="submit" value="Back to Main Page" />
+				</form>
+				
+				<!--<form action="index.html">
+					<input type="submit" id="registerButton" value="Register" />
+				</form>-->
+			</section>
+			</p>
+		</div>
+	</body>
+	<!-- JQuery Scripts -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAHLeFFW2LBF4dyNH7KXhv5T3S08W28H3M",
+			authDomain: "freeliftsproject-47742.firebaseapp.com",
+			databaseURL: "https://freeliftsproject-47742.firebaseio.com",
+			storageBucket: "freeliftsproject-47742.appspot.com",
+			messagingSenderId: "453491711849"
+		};
+		firebase.initializeApp(config);
+		// End Initialize Firebase
+		
+		
+		//Saves the user's email and password in the database with its own unique ID
+		$("#registerButton").click(function()
+		{
+			if (confirm("Thank you for registering!!")) {
+    			firebase.database().ref('Users/' + $("#username").val()).set({
+					Email: $("#email").val(),
+					Password: $("#password").val()
+				});
+    		}
+   			return false;
+			
+		});
+	
+
+	</script>
+
+
+</html>
