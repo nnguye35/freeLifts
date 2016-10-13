@@ -1,6 +1,6 @@
 table, td {border: 1px solid red;}
 body {background-color: black;}
-h1, h2, h3, label, td, li, ul {color: red;}
+h1, h2, h3, label, td, li, ul , div{color: red;}
 input:invalid{
 	border: 3px solid blue;
 }
@@ -59,4 +59,7 @@ p.links{
     width: 100%;
     height: 2000px;
     background: black;
+}
+div.container{
+	color: red;
 }
