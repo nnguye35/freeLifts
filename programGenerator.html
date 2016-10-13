@@ -1,5 +1,47 @@
 <!DOCTYPE html>
 <html>
+<style>
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: black;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 {
+      background-color: black; /* Green */
+      color: #ffffff;
+  }
+  .bg-2 {
+      background-color: #2f2f2f; /* Dark Blue */
+      color: #ffffff;
+  }
+  .bg-3 {
+      background-color: #ffffff; /* White */
+      color: #555555;
+  }
+  .bg-4 {
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+  }
+  .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
+  
+  </style>
 	<head>
 		<link rel="stylesheet" type="text/css" href="main.css">
 	</head>
@@ -31,13 +73,31 @@
 		</form>
 		<!-- <input type="submit" value="Add to Program"> -->
 		<!-- Button adds workout to program list -->
-		<button onclick="createSetxRep()">Add to Program</button>
+		<input type ="button" id="programButton" onclick="createSetxRep()" value="Add to Program"></input>
 		<br>
 		<!-- Logout button takes user back to front page -->
 		<form action="index.html">
 			<input type="submit" value="Logout" />
 		</form>
 
+		<!-- Categories for table -->
+		<p>
+			<aside>
+				<table id="myProgram">
+					<tr>
+						<td>Workout</td>
+						<td>Sets</td>
+						<td>Reps</td>
+					</tr>
+				</table>
+			</aside>
+		</p>
+		<br>
+		<table>
+    		<tr>
+        		<td id="here">test</td>
+    		</tr>
+		</table>
 		<br> 	
 		<!-- Gets data from input and display in a table -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -67,18 +127,35 @@
     			document.getElementById("myProgram").deleteRow(i);
 			}
 
+			
 		</script>
-		<!-- Categories for table -->
-		<p>
-			<aside>
-				<table id="myProgram">
-					<tr>
-						<td>Workout</td>
-						<td>Sets</td>
-						<td>Reps</td>
-					</tr>
-				</table>
-			</aside>
-		</p>
+		<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAHLeFFW2LBF4dyNH7KXhv5T3S08W28H3M",
+			authDomain: "freeliftsproject-47742.firebaseapp.com",
+			databaseURL: "https://freeliftsproject-47742.firebaseio.com",
+			storageBucket: "freeliftsproject-47742.appspot.com",
+			messagingSenderId: "453491711849"
+		};
+		firebase.initializeApp(config);
+		// End Initialize Firebase
+		
+		
+		
+		$("#programButton").click(function() {
+  				var query = location.search.substr(1);
+  				var result = {};
+  				query.split("&").forEach(function(part) {
+    			var item = part.split("=");
+    			result[item[0]] = decodeURIComponent(item[1]);
+  			});
+  			return result;
+		}
+	});
+	
+
+	</script>
+		
 	</body>
 </html>
