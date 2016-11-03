@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "free-lifts",
+  "private_key_id": "a42aa36f6cb3aa6b4124b6719c9098b2ac031940",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDHEPzeGr3aW/F1\ndxOxmuadX2K4dxpql47efNqtikm8sKLiPg5RvPoSyVPN7JLRAVSw2YrDiNA4x/PZ\npC3kPVaA/HqQXeamhSNR7PrDgerh8WhOjPf8xHffb/3XWwMzFCmON0vyUgJKJydl\nKplLxHU3nimhMAzSJ9XwUp+6B4THXsb6Zs6eCNZEV8AhKg+4Pp7fOkqB3ruUAPK8\n6QCtx5TEwyW+X6ZKzt5yrihxOLlWOM11NBhOLynFTUphu7q5PdmdwFBgaD48xsYE\ng2/ycQBjwTSA2IVBOWwj17lqzcVEFq1JjIp7VqKM3tk8yotMtfQctOWCK1TuSraC\noeZa9AJRAgMBAAECggEBAKSKHBkRjX+ho7FuHW8eFCRcJWNHvyP/5e1s0evDdDNs\n5RWQKZHSW/mPQ5/gPXJYYUJUbeg1e7aTP7HTjMMtGAVBq6UMmItnXMxoztUu25Cq\nU4cp6giZ9GNRVEXfSoO71KVie3nt40qblmp+jXsdBa5VIx/CcbZ7itA72x6O/Gc1\nLsL+QCLbaoWVkU5M/NtXe1Qn9Kk6c7wCliFA9CIPE6p9T+B1MFZhJDRqGPnivfIc\nzpv1AJzvhPcvRyVgisQPPNWIA4sGQikFrk7oyNPeqjAetG2qNM7kBp+0F2pnudoW\nxaFNV0aE+Yt5+00N5Hc2bKAX8jEDJDsT+TsbJj4uHoECgYEA+W0n0ZiZWWU1m2t/\nMLNAKgkq8bNhAjskVCu6cgsUMoQd345MhDuScBsUYlyKsRcJfv0kCAGhy9DEyJAO\n+uo8y0ixxrX1sLwOEiIEctussBheHCQwLIkcv+IS+Jdf3rSb8VSJ7qPEUpfv3R0Q\nJvIM/zbzOa/n+Gpx485+PTkqr2kCgYEAzFAPbARenCSEoE0QVuTpyEStSAidLMAh\nPP9ph4XnsOIrxT+ZUMDKCLW6nxLWiwknuQsFIBVt2v0fqsBZ7FBesKSi5XwDF6cT\nzTQAqHlXX260N3wXTr4QCchzyNHYcHPbyS3/393nK2x4xLj0LqAUJkB/9iBT/ZSy\nzBxXwJDjxqkCgYEA1qP9aRvFky1KVWXLPVBzvfjHsNkpeO8GEzzSJEOubM5Omsvs\nwro1CS30e7ShUUW+0T3r3MvyvN76CJIXogsip9j1y0dYl28tOKN3apPp5lwB2Hu3\nzQts5x8YLj6trIuFysZyMB9T2bOQIZpaBPm0/4b9Bb5/g8GuIljXP75LIkkCgYEA\npFFvVcxd2u5zzAiur3QDoZG6W0iyQB91m/0+/kPvhw8fbNAtmgizdDXUFcOs0L1Y\nOTZntNoHNCyHn2h76dbpkN+YM0B9rDQvdMXyEY0lfBco0cb3Z9jsRTH2DPjYPfiw\nNyjLtVxeY0omBvFJUYZlLi6Ju4Vch4FkG0xgNvtQdaECgYBKje2XJUrItYdONXt5\nrb0EWl+8t7UBPs14fxN0lRtfzHT3dIYwWOs2m1r6KacDpMvpVWHeow0vNB1iDbyi\nNsKTUJjAZKJVHIlSRVibeCg0Xk2p+C1F6TdWYEmvP+7G+rgDYDuNPPT4+D5Pia3a\nGXiyZbqJ73Z9iILUO/GDtndueA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "freelifts@free-lifts.iam.gserviceaccount.com",
+  "client_id": "108665511939624647746",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/freelifts%40free-lifts.iam.gserviceaccount.com"
+}

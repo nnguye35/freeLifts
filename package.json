@@ -1,0 +1,30 @@
+{
+  "name": "freelifts",
+  "version": "1.0.0",
+  "description": "Free Lifts Program",
+  "main": "upload.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnguye35/freeLifts.git"
+  },
+  "keywords": [
+    "freelifts"
+  ],
+  "author": "Victor Nguyen, Anhtoan Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nnguye35/freeLifts/issues"
+  },
+  "homepage": "https://github.com/nnguye35/freeLifts#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "firebase": "^3.5.2",
+    "formidable": "^1.0.17",
+    "gcloud": "^0.37.0",
+    "multer": "^1.2.0"
+  },
+  "devDependencies": {}
+}
