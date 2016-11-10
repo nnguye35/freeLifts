@@ -55,6 +55,15 @@
       font-size: 12px;
       letter-spacing: 5px;
   }
+  .userbar {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 10px;
+	  text-align: right;
+  }
   .navbar-nav  li a:hover {
       color: #1abc9c !important;
   }
@@ -82,6 +91,10 @@
         <li><a id="generator">Program Creator</a></li>
       </ul>
     </div>
+	<div class="userbar" id="userbar">
+		<li><a id="youare">You are logged in as... </a></li>
+		<li><a id="user"></a></li>
+	</div>
   </div>
 </nav>
 
@@ -277,8 +290,7 @@
   
 	$('#generator').hide();
 	$('#logout').hide();
-	
-
+	$('#youare').hide();
 
 
 var Generator = React.createClass({
@@ -356,6 +368,13 @@ var LoginResults = React.createClass({
 			alert("Thank you for logging in!!");
 			$('#generator').show();
 			$('#logout').show();
+			$('#login').hide();
+			$('#register').hide();
+			
+			$('#youare').show();
+			var user = firebase.auth().currentUser;
+			document.getElementById("user").innerHTML = user.email;
+			
 			return firebaseUser;
 		}).catch(function(error) {
 			var errorCode = error.code;
