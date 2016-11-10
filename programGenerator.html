@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html>
-<style>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Free Lifts Program Your Way!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+  <script src="https://fb.me/react-15.0.0.js"></script>
+  <script src="https://fb.me/react-dom-15.0.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+  <style>
   body {
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
-      color: black;
+      color: #f5f6f7;
+  }
+  .option{
+    color: black;
   }
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
@@ -42,120 +64,466 @@
   }
   
   </style>
-	<head>
-		<link rel="stylesheet" type="text/css" href="main.css">
-	</head>
-	<body>
-		<br>
-		<form>
-			<h1>Select Workout:
-				<select id="SelectedWorkout"> <!--Allows selection of certain types of workouts for to be inputted in the program-->
-					<option selected="selected">Squats</option>
-					<option>Bench Press</options>
-					<option>Deadlifts</options>
-					<option>Shoulder Press</options>
-					<option>Barbell Row</options>
-					<option>Pull Ups</options>
-					<option>Front Squats</options>
-					<option>Dumbell Press</options>
-				</select>
-			</h1>
-			<p>
-				<label>Enter number of sets for this workout: <!-- Number of sets to input-->
-					<input id="SetNumber" type="number" name="sets">
-				</label>
-			</p>
-			<p>
-				<label>Enter number of reps for this workout: <!-- Number of reps to input-->
-					<input id="RepNumber" type="number" name="reps">
-				</label>
-			</p>
-		</form>
-		<!-- <input type="submit" value="Add to Program"> -->
-		<!-- Button adds workout to program list -->
-		<input type ="button" id="programButton" onclick="createSetxRep()" value="Add to Program"></input>
-		<br>
-		<!-- Logout button takes user back to front page -->
-		<form action="index.html">
-			<input type="submit" value="Logout" />
-		</form>
+</head>
+<body>
 
-		<!-- Categories for table -->
-		<p>
-			<aside>
-				<table id="myProgram">
-					<tr>
-						<td>Workout</td>
-						<td>Sets</td>
-						<td>Reps</td>
-					</tr>
-				</table>
-			</aside>
-		</p>
-		<br>
-		<table>
-    		<tr>
-        		<td id="here">test</td>
-    		</tr>
-		</table>
-		<br> 	
-		<!-- Gets data from input and display in a table -->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-		<script>
-			function createSetxRep(){
-				var table = document.getElementById("myProgram");
-				var row = table.insertRow(-1);
-				var workout = row.insertCell(0);
-				var set = row.insertCell(1);
-				var rep = row.insertCell(2);
-				var delButton = row.insertCell(3);
-				workout.innerHTML = document.getElementById("SelectedWorkout").value;
-				set.innerHTML = document.getElementById("SetNumber").value;
-				rep.innerHTML = document.getElementById("RepNumber").value;
-				//added a delete button into the table
-				delButton.innerHTML = '<input id="deleteButton" type="button" value="Delete" onclick="deleteRow(this)" >';
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Welcome to Free Lifts Project!</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="login">Login</a></li>
+        <li><a id="logout">Logout</a></li>
+        <li><a id="register">Register</a></li>
+        <li><a id="generator">Program Creator</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 
-			}
-			//New delete function to delete elemenet dynamically from the table with am eventhandler to confirm deletion of element
-			function deleteRow(r) {
-				var i = r.parentNode.parentNode.rowIndex;
-				if (confirm("Are you sure?")) {
-    				document.getElementById("myProgram").deleteRow(i); 
-    			}
-   				return false;
-    			document.getElementById("myProgram").deleteRow(i);
-			}
 
-			
-		</script>
-		<script>
-		// Initialize Firebase
-		var config = {
-			apiKey: "AIzaSyAHLeFFW2LBF4dyNH7KXhv5T3S08W28H3M",
-			authDomain: "freeliftsproject-47742.firebaseapp.com",
-			databaseURL: "https://freeliftsproject-47742.firebaseio.com",
-			storageBucket: "freeliftsproject-47742.appspot.com",
-			messagingSenderId: "453491711849"
-		};
-		firebase.initializeApp(config);
-		// End Initialize Firebase
-		
-		
-		
-		$("#programButton").click(function() {
-  				var query = location.search.substr(1);
-  				var result = {};
-  				query.split("&").forEach(function(part) {
-    			var item = part.split("=");
-    			result[item[0]] = decodeURIComponent(item[1]);
-  			});
-  			return result;
-		}
-	});
-	
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <body>
+    <br>
+    <form>
+      <h1>Select Workout:
+        <font color="black">
+        <select id="SelectedWorkout"> <!--Allows selection of certain types of workouts for to be inputted in the program-->
+          <option selected="selected">Squats</option>
+          <option>Bench Press</options>
+          <option>Deadlifts</options>
+          <option>Shoulder Press</options>
+          <option>Barbell Row</options>
+          <option>Pull Ups</options>
+          <option>Front Squats</options>
+          <option>Dumbell Press</options>
+        </font>
+        </select>
+      </h1>
+      <p>
+        <font color="white";
+        <label>Enter number of sets for this workout: <!-- Number of sets to input-->
+          <font color="black">
+          <input id="SetNumber" type="number" name="sets">
+        </font>
+        </label>
+      </font>
+      </p>
+      <p>
+        <font color="white">
+        <label>Enter number of reps for this workout: <!-- Number of reps to input-->
+          <font color="black">
+          <input id="RepNumber" type="number" name="reps">
+        </font>
+        </label>
+      </font>
+      </p>
+    </form>
+    <!-- <input type="submit" value="Add to Program"> -->
+    <!-- Button adds workout to program list -->
+    <input type ="button" id="programButton" onclick="createSetxRep()" value="Add to Program"></input>
+    <br>
+    <!-- Logout button takes user back to front page -->
+    <form action="index.html">
+      <input type="submit" value="Go Home" />
+    </form>
 
-	</script>
-		
-	</body>
+    <!-- Categories for table -->
+    <font color="white">
+    <p>
+      <aside>
+        <table id="myProgram">
+          <tr>
+            <td>Workout</td>
+            <td>Sets</td>
+            <td>Reps</td>
+          </tr>
+        </table>
+      </aside>
+    </p>
+  </font>
+    <br>
+    
+    <br>  
+    <!-- Gets data from input and display in a table -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+      function createSetxRep(){
+        var table = document.getElementById("myProgram");
+        var row = table.insertRow(-1);
+        var workout = row.insertCell(0);
+        var set = row.insertCell(1);
+        var rep = row.insertCell(2);
+        var delButton = row.insertCell(3);
+        workout.innerHTML = document.getElementById("SelectedWorkout").value;
+        set.innerHTML = document.getElementById("SetNumber").value;
+        rep.innerHTML = document.getElementById("RepNumber").value;
+        //added a delete button into the table
+        delButton.innerHTML = '<input id="deleteButton" type="button" value="Delete" onclick="deleteRow(this)" >';
+
+
+      }
+      //New delete function to delete elemenet dynamically from the table with am eventhandler to confirm deletion of element
+      function deleteRow(r) {
+        var i = r.parentNode.parentNode.rowIndex;
+        if (confirm("Are you sure?")) {
+            document.getElementById("myProgram").deleteRow(i); 
+          }
+          return false;
+          document.getElementById("myProgram").deleteRow(i);
+      }
+
+      
+    </script>
+  </body>
+</div>
+
+<!-- Second Container -->
+<div class="container-fluid bg-2 text-center">
+  <h3 class="margin">How to Use</h3>
+  <p>Start by Registering and then logging in with your unique User email, and if you're already logged in feel free to create or edit your program or check out your existing workout programs that you have created. And get out there and make progress!!</p>
+</div>
+
+<!-- Third Container (Grid) -->
+<div class="container-fluid bg-3 text-center">
+  <h3 class="margin">Useful Links</h3><br>
+  <div class="row">
+    <div class="col-sm-4">
+      <p>The Buff Dudes channel combines educational yet delightfully funny entertainment to show useful bodybuilding and strength training techniques for help</p>
+      <a href="https://www.youtube.com/user/buffdudes">
+      <img src="images/buffdudes.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <p>Elliot Hulse's strength camp provides a more seriosu yet insightful information for bodybuilders and strength trainers alike, supplying motivation and disicpline to "become the strongest version of yourself"</p>
+      <a href="https://www.youtube.com/channel/UC0ASolYU_Yh3yShLFQC0stg">
+      <img src="images/elliothulse.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <p>The Hodgetwins, provides entertainment value through training videos and clever quirks that have more of an entertainment value, but we here at FreeLifts just wanted users to have a nice laugh during their rest sets</p>
+      <a href="https://www.youtube.com/channel/UC4FhvdvgZU5CVbXi2uWgiZg">
+      <img src="images/hodgetwins.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+<!--
+<button class="upload-button" type="button">Upload Picture</button>
+<input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+<form id="upload" action="/uploads" method ="post" enctype="multipart/form-data">
+  <input type="file" name="photo"/>
+  <input type="submit" value="Upload Image" name="submit"/>
+</form>
+-->
+
+
+
+
+
+
+
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p>Bootstrap Theme Made By <a href="http://www.w3schools.com">www.w3schools.com</a></p>
+</footer>
+
+
+
+
+</body>
+<script type="text/babel">
+  "use strict";
+    $('.carousel').carousel({
+        interval: 3000, //changes the speed
+        pause: "hover"  
+    })
+    // Enable Carousel Indicators
+    $(".item1").click(function(){
+        $("carousel").carousel(0);
+    });
+    $(".item2").click(function(){
+        $("carousel").carousel(1);
+    });
+    $(".item3").click(function(){
+        $("carousel").carousel(2);
+    });
+    $(".item4").click(function(){
+        $("carousel").carousel(3);
+    });
+      // Enable Carousel Controls
+    $('a[data-slide="prev"]').click(function(){
+        $("carousel").carousel("prev");
+    });
+    $('a[data-slide="prev"]').click(function(){
+        $("carousel").carousel("next");
+    });
+     // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAHLeFFW2LBF4dyNH7KXhv5T3S08W28H3M",
+    authDomain: "freeliftsproject-47742.firebaseapp.com",
+    databaseURL: "https://freeliftsproject-47742.firebaseio.com",
+    storageBucket: "freeliftsproject-47742.appspot.com",
+    messagingSenderId: "453491711849"
+  };
+  firebase.initializeApp(config);
+
+  
+  var fireRef = firebase.database().ref('todos');
+    
+  fireRef.on("child_added",function(v){
+        createTodo(v.val().text,v.val().img);
+  });
+  
+    function createTodo(text, img)
+    {
+        if(img)
+        {
+            $('#todoItems').append(
+                '<div class="todoItem"><img src="'+img+'" /><br/>'+text+'</div>'
+            );
+        }
+        else
+    {
+            $('#todoItems').append(
+                '<div class="todoItem">'+text+'</div>'
+            );
+    }
+  }
+  
+  $('#newItemForm').submit(function(e)
+    {
+        e.preventDefault();
+        var formData = new FormData($("#newItemForm")[0]);
+        console.log(formData);
+        $.ajax({
+            type: "POST",
+            url: "/todo",
+            data: formData,processData: false,
+            contentType: false
+
+    });
+  });
+  
+
+  
+  $('#generator').hide();
+  $('#logout').hide();
+  
+
+
+
+var Generator = React.createClass({
+    onClick: function() {
+        window.location.href = "programGenerator.html";
+    },
+    render: function() {
+        return (
+            <div>
+                <input type="submit" value="Program Generator" onClick={this.onClick} />
+            </div>
+        );
+    }
+});
+
+ReactDOM.render( <Generator /> , document.getElementById('generator')); 
+  
+
+
+var Logout = React.createClass({
+    onClick: function() {
+        firebase.auth().signOut().then(function() {
+      alert("Successfully logged out.");
+      window.location.href = "index.html";
+    }, function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("Error.");
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
+    },
+    render: function() {
+        return (
+            <div>
+                <input type="submit" value="Logout" onClick={this.onClick} />
+            </div>
+        );
+    }
+});
+
+ReactDOM.render( <Logout /> , document.getElementById('logout'));
+
+  
+var Login = React.createClass({
+    getInitialState: function() {
+        return { showResults: false };
+    },
+    handleClick: function() {
+        if (this.state.showResults == false){
+      this.setState({ showResults: true });
+    }
+    else {
+      this.setState({ showResults: false});
+    }
+    },
+    render: function() {
+        return (
+            <div>
+                <input type="submit" value="Login" onClick={this.handleClick} />
+                { this.state.showResults ? <LoginResults /> : null }
+            </div>
+        );
+    }
+});
+
+var LoginResults = React.createClass({
+  onClick: function() {
+    
+    var email = document.getElementById("txtEmail").value;
+    var password = document.getElementById("txtPass").value;
+    
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
+      console.log("User " + firebaseUser.uid + " logged in successfully!");
+      alert("Thank you for logging in!!");
+      $('#generator').show();
+      $('#logout').show();
+      return firebaseUser;
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("Error.");
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
+    },
+  
+  render: function() {
+        return (
+            <div id="loginresults" className="login-results">
+                <h2>Login</h2>
+                <div class="form-group">
+                  <label for="txtRegEmail">Email address</label>
+                  <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="email" />
+                </div>
+                <div class="form-group">
+                  <label for="txtRegPass">Password</label>
+                  <input type="password" class="form-control" id="txtPass" placeholder="Password" name="password" />
+                </div>
+                <button type="submit" id="regButton" class="btn btn-default" onClick={this.onClick}>Login</button>
+            </div>
+        );
+    }
+    
+});
+
+ReactDOM.render( <Login /> , document.getElementById('login'));
+  
+  
+
+var Register = React.createClass({
+    getInitialState: function() {
+        return { showResults: false };
+    },
+    handleClick: function() {
+        if (this.state.showResults == false){
+      this.setState({ showResults: true });
+    }
+    else {
+      this.setState({ showResults: false});
+    }
+    },
+    render: function() {
+        return (
+            <div>
+                <input type="submit" value="Register" onClick={this.handleClick} />
+                { this.state.showResults ? <RegisterResults /> : null }
+            </div>
+        );
+    }
+});
+
+var RegisterResults = React.createClass({
+    render: function() {
+        return (
+            <div id="registerresults" className="register-results">
+                <h2>Register</h2>
+                <div class="form-group">
+                  <label for="txtRegEmail">Email address</label>
+                  <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="email" />
+                </div>
+                <div class="form-group">
+                  <label for="txtRegPass">Password</label>
+                  <input type="password" class="form-control" id="txtPass" placeholder="Password" name="password" />
+                </div>
+                <button type="submit" id="regButton" class="btn btn-default" onClick={this.onClick}>Register</button>
+            </div>
+        );
+    },
+    onClick: function() {
+    
+    var email = document.getElementById("txtEmail").value;
+    var password = document.getElementById("txtPass").value;
+    
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
+      console.log("User " + firebaseUser.uid + " created successfully!");
+      alert("Thank you for registering!!");
+      window.location.href = "index.html";
+      return firebaseUser;
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("Error.");
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
+    
+    
+    
+    /*
+        if (confirm("Thank you for registering!!")) {
+      var email = document.getElementById("txtEmail").value;
+      var password = document.getElementById("txtPass").value;
+      
+      firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
+        console.log("User " + firebaseUser.uid + " created successfully!");
+        return firebaseUser;
+      }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log("Error.");
+        console.log(errorCode, errorMessage);
+      });
+      
+      this.setState({ showResults: false });
+      
+    }
+    return false;
+    */
+    } 
+});
+
+ReactDOM.render( <Register /> , document.getElementById('register'));
+
+
+      
+
+  
+ </script>
+ 
 </html>
+
+<!-- Template taken from w3schools.com -->
