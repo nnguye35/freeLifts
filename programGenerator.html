@@ -59,6 +59,15 @@
       font-size: 12px;
       letter-spacing: 5px;
   }
+  .userbar {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 10px;
+	  text-align: right;
+  }  
   .navbar-nav  li a:hover {
       color: #1abc9c !important;
   }
@@ -76,16 +85,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Welcome to Free Lifts Project!</a>
+      <a class="navbar-brand" href="index.html">Welcome to Free Lifts Project!</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a id="login">Login</a></li>
+        <!--<li><a id="login">Login</a></li>-->
         <li><a id="logout">Logout</a></li>
-        <li><a id="register">Register</a></li>
+        <!--<li><a id="register">Register</a></li>-->
         <li><a id="generator">Program Creator</a></li>
       </ul>
     </div>
+	<div class="userbar" id="userbar">
+		<li><a id="youare">You are logged in as... </a></li>
+		<li><a id="user"></a></li>
+	</div>
   </div>
 </nav>
 
@@ -112,7 +125,7 @@
       </h1>
       <p>
         <font color="white";
-        <label>Enter number of sets for this workout: <!-- Number of sets to input-->
+        <label><b>Enter number of sets for this workout:</b> <!-- Number of sets to input-->
           <font color="black">
           <input id="SetNumber" type="number" name="sets">
         </font>
@@ -129,13 +142,12 @@
       </font>
       </p>
     </form>
-    <!-- <input type="submit" value="Add to Program"> -->
     <!-- Button adds workout to program list -->
     <input type ="button" id="programButton" onclick="createSetxRep()" value="Add to Program"></input>
     <br>
     <!-- Logout button takes user back to front page -->
     <form action="index.html">
-      <input type="submit" value="Go Home" />
+      <input type="submit" value="Logout"/>
     </form>
 
     <!-- Categories for table -->
@@ -155,36 +167,7 @@
     <br>
     
     <br>  
-    <!-- Gets data from input and display in a table -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script>
-      function createSetxRep(){
-        var table = document.getElementById("myProgram");
-        var row = table.insertRow(-1);
-        var workout = row.insertCell(0);
-        var set = row.insertCell(1);
-        var rep = row.insertCell(2);
-        var delButton = row.insertCell(3);
-        workout.innerHTML = document.getElementById("SelectedWorkout").value;
-        set.innerHTML = document.getElementById("SetNumber").value;
-        rep.innerHTML = document.getElementById("RepNumber").value;
-        //added a delete button into the table
-        delButton.innerHTML = '<input id="deleteButton" type="button" value="Delete" onclick="deleteRow(this)" >';
 
-
-      }
-      //New delete function to delete elemenet dynamically from the table with am eventhandler to confirm deletion of element
-      function deleteRow(r) {
-        var i = r.parentNode.parentNode.rowIndex;
-        if (confirm("Are you sure?")) {
-            document.getElementById("myProgram").deleteRow(i); 
-          }
-          return false;
-          document.getElementById("myProgram").deleteRow(i);
-      }
-
-      
-    </script>
   </body>
 </div>
 
@@ -221,30 +204,114 @@
 
 
 
-<!--
-<button class="upload-button" type="button">Upload Picture</button>
-<input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
-<form id="upload" action="/uploads" method ="post" enctype="multipart/form-data">
-  <input type="file" name="photo"/>
-  <input type="submit" value="Upload Image" name="submit"/>
-</form>
--->
-
-
-
-
-
-
-
 <!-- Footer -->
 <footer class="container-fluid bg-4 text-center">
   <p>Bootstrap Theme Made By <a href="http://www.w3schools.com">www.w3schools.com</a></p>
 </footer>
 
 
-
-
 </body>
+
+
+  
+  
+<script type="text/babel">
+       // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAHLeFFW2LBF4dyNH7KXhv5T3S08W28H3M",
+    authDomain: "freeliftsproject-47742.firebaseapp.com",
+    databaseURL: "https://freeliftsproject-47742.firebaseio.com",
+    storageBucket: "freeliftsproject-47742.appspot.com",
+    messagingSenderId: "453491711849"
+  };
+  firebase.initializeApp(config);
+  
+
+  
+	
+  
+	$('#logout').hide();	//Hide logout button if not logged in
+	//$('#youare').hide();	//Hide user name if not logged in
+	
+	
+	var user = firebase.auth().currentUser;
+	document.getElementById("user").innerHTML = user.email;
+	console.log("User " + firebaseUser.uid);
+	
+	//Program generator link
+	var Generator = React.createClass({
+		onClick: function() {
+			window.location.href = "programGenerator.html";
+		},
+		render: function() {
+			return (
+				<div>
+					<input type="submit" value="Program Generator" onClick={this.onClick} />
+				</div>
+			);
+		}
+	});
+
+	ReactDOM.render( <Generator /> , document.getElementById('generator'));	
+	
+	
+	//Class for logout button
+	var Logout = React.createClass({
+		onClick: function() {
+			firebase.auth().signOut().then(function() {
+				alert("Successfully logged out.");
+				window.location.href = "index.html";
+			}, function(error) {
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log("Error.");
+				console.log(errorCode, errorMessage);
+				alert(errorMessage);
+			});
+		},
+		render: function() {
+			return (
+				<div>
+					<input type="submit" value="Logout" onClick={this.onClick} />
+				</div>
+			);
+		}
+	});
+
+	ReactDOM.render( <Logout /> , document.getElementById('logout'));
+  
+  
+</script>
+
+<!-- Gets data from input and display in a table -->
+<script>
+  function createSetxRep(){
+	var table = document.getElementById("myProgram");
+	var row = table.insertRow(-1);
+	var workout = row.insertCell(0);
+	var set = row.insertCell(1);
+	var rep = row.insertCell(2);
+	var delButton = row.insertCell(3);
+	workout.innerHTML = document.getElementById("SelectedWorkout").value;
+	set.innerHTML = document.getElementById("SetNumber").value;
+	rep.innerHTML = document.getElementById("RepNumber").value;
+	//added a delete button into the table
+	delButton.innerHTML = '<input id="deleteButton" type="button" value="Delete" onclick="deleteRow(this)" >';
+
+
+  }
+  //New delete function to delete elemenet dynamically from the table with am eventhandler to confirm deletion of element
+  function deleteRow(r) {
+	var i = r.parentNode.parentNode.rowIndex;
+	if (confirm("Are you sure?")) {
+		document.getElementById("myProgram").deleteRow(i); 
+	  }
+	  return false;
+	  //document.getElementById("myProgram").deleteRow(i);
+  }
+  </script>
+
+  <!--
 <script type="text/babel">
   "use strict";
     $('.carousel').carousel({
@@ -271,259 +338,12 @@
     $('a[data-slide="prev"]').click(function(){
         $("carousel").carousel("next");
     });
-     // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAHLeFFW2LBF4dyNH7KXhv5T3S08W28H3M",
-    authDomain: "freeliftsproject-47742.firebaseapp.com",
-    databaseURL: "https://freeliftsproject-47742.firebaseio.com",
-    storageBucket: "freeliftsproject-47742.appspot.com",
-    messagingSenderId: "453491711849"
-  };
-  firebase.initializeApp(config);
+	
+	
 
-  
-  var fireRef = firebase.database().ref('todos');
-    
-  fireRef.on("child_added",function(v){
-        createTodo(v.val().text,v.val().img);
-  });
-  
-    function createTodo(text, img)
-    {
-        if(img)
-        {
-            $('#todoItems').append(
-                '<div class="todoItem"><img src="'+img+'" /><br/>'+text+'</div>'
-            );
-        }
-        else
-    {
-            $('#todoItems').append(
-                '<div class="todoItem">'+text+'</div>'
-            );
-    }
-  }
-  
-  $('#newItemForm').submit(function(e)
-    {
-        e.preventDefault();
-        var formData = new FormData($("#newItemForm")[0]);
-        console.log(formData);
-        $.ajax({
-            type: "POST",
-            url: "/todo",
-            data: formData,processData: false,
-            contentType: false
-
-    });
-  });
-  
-
-  
-  $('#generator').hide();
-  $('#logout').hide();
-  
-
-
-
-var Generator = React.createClass({
-    onClick: function() {
-        window.location.href = "programGenerator.html";
-    },
-    render: function() {
-        return (
-            <div>
-                <input type="submit" value="Program Generator" onClick={this.onClick} />
-            </div>
-        );
-    }
-});
-
-ReactDOM.render( <Generator /> , document.getElementById('generator')); 
-  
-
-
-var Logout = React.createClass({
-    onClick: function() {
-        firebase.auth().signOut().then(function() {
-      alert("Successfully logged out.");
-      window.location.href = "index.html";
-    }, function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log("Error.");
-      console.log(errorCode, errorMessage);
-      alert(errorMessage);
-    });
-    },
-    render: function() {
-        return (
-            <div>
-                <input type="submit" value="Logout" onClick={this.onClick} />
-            </div>
-        );
-    }
-});
-
-ReactDOM.render( <Logout /> , document.getElementById('logout'));
-
-  
-var Login = React.createClass({
-    getInitialState: function() {
-        return { showResults: false };
-    },
-    handleClick: function() {
-        if (this.state.showResults == false){
-      this.setState({ showResults: true });
-    }
-    else {
-      this.setState({ showResults: false});
-    }
-    },
-    render: function() {
-        return (
-            <div>
-                <input type="submit" value="Login" onClick={this.handleClick} />
-                { this.state.showResults ? <LoginResults /> : null }
-            </div>
-        );
-    }
-});
-
-var LoginResults = React.createClass({
-  onClick: function() {
-    
-    var email = document.getElementById("txtEmail").value;
-    var password = document.getElementById("txtPass").value;
-    
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
-      console.log("User " + firebaseUser.uid + " logged in successfully!");
-      alert("Thank you for logging in!!");
-      $('#generator').show();
-      $('#logout').show();
-      return firebaseUser;
-    }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log("Error.");
-      console.log(errorCode, errorMessage);
-      alert(errorMessage);
-    });
-    },
-  
-  render: function() {
-        return (
-            <div id="loginresults" className="login-results">
-                <h2>Login</h2>
-                <div class="form-group">
-                  <label for="txtRegEmail">Email address</label>
-                  <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="email" />
-                </div>
-                <div class="form-group">
-                  <label for="txtRegPass">Password</label>
-                  <input type="password" class="form-control" id="txtPass" placeholder="Password" name="password" />
-                </div>
-                <button type="submit" id="regButton" class="btn btn-default" onClick={this.onClick}>Login</button>
-            </div>
-        );
-    }
-    
-});
-
-ReactDOM.render( <Login /> , document.getElementById('login'));
-  
-  
-
-var Register = React.createClass({
-    getInitialState: function() {
-        return { showResults: false };
-    },
-    handleClick: function() {
-        if (this.state.showResults == false){
-      this.setState({ showResults: true });
-    }
-    else {
-      this.setState({ showResults: false});
-    }
-    },
-    render: function() {
-        return (
-            <div>
-                <input type="submit" value="Register" onClick={this.handleClick} />
-                { this.state.showResults ? <RegisterResults /> : null }
-            </div>
-        );
-    }
-});
-
-var RegisterResults = React.createClass({
-    render: function() {
-        return (
-            <div id="registerresults" className="register-results">
-                <h2>Register</h2>
-                <div class="form-group">
-                  <label for="txtRegEmail">Email address</label>
-                  <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="email" />
-                </div>
-                <div class="form-group">
-                  <label for="txtRegPass">Password</label>
-                  <input type="password" class="form-control" id="txtPass" placeholder="Password" name="password" />
-                </div>
-                <button type="submit" id="regButton" class="btn btn-default" onClick={this.onClick}>Register</button>
-            </div>
-        );
-    },
-    onClick: function() {
-    
-    var email = document.getElementById("txtEmail").value;
-    var password = document.getElementById("txtPass").value;
-    
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
-      console.log("User " + firebaseUser.uid + " created successfully!");
-      alert("Thank you for registering!!");
-      window.location.href = "index.html";
-      return firebaseUser;
-    }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log("Error.");
-      console.log(errorCode, errorMessage);
-      alert(errorMessage);
-    });
-    
-    
-    
-    /*
-        if (confirm("Thank you for registering!!")) {
-      var email = document.getElementById("txtEmail").value;
-      var password = document.getElementById("txtPass").value;
-      
-      firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
-        console.log("User " + firebaseUser.uid + " created successfully!");
-        return firebaseUser;
-      }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log("Error.");
-        console.log(errorCode, errorMessage);
-      });
-      
-      this.setState({ showResults: false });
-      
-    }
-    return false;
-    */
-    } 
-});
-
-ReactDOM.render( <Register /> , document.getElementById('register'));
-
-
-      
-
-  
- </script>
- 
+	
+</script>
+ -->
 </html>
 
 <!-- Template taken from w3schools.com -->
