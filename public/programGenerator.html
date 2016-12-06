@@ -12,6 +12,7 @@
   <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 
   <script src="https://fb.me/react-15.0.0.js"></script>
@@ -23,6 +24,9 @@
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
       color: #f5f6f7;
+  }
+  .option{
+    color: black;
   }
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
@@ -55,15 +59,6 @@
       font-size: 12px;
       letter-spacing: 5px;
   }
-  .userbar {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border: 0;
-      border-radius: 0;
-      margin-bottom: 0;
-      font-size: 10px;
-	  text-align: right;
-  }
   .navbar-nav  li a:hover {
       color: #1abc9c !important;
   }
@@ -91,10 +86,6 @@
         <li><a id="generator">Program Creator</a></li>
       </ul>
     </div>
-	<div class="userbar" id="userbar">
-		<li><a id="youare">You are logged in as... </a></li>
-		<li><a id="user"></a></li>
-	</div>
   </div>
 </nav>
 
@@ -102,47 +93,99 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Our Influences</h3>
-  <!--<img src="conquer.jpg" class="img-responsive img-circle margin" style="display:inline" alt="arnold" width="350" height="350"> -->
+  <body>
+    <br>
+    <form>
+      <h1>Select Workout:
+        <font color="black">
+        <select id="SelectedWorkout"> <!--Allows selection of certain types of workouts for to be inputted in the program-->
+          <option selected="selected">Squats</option>
+          <option>Bench Press</options>
+          <option>Deadlifts</options>
+          <option>Shoulder Press</options>
+          <option>Barbell Row</options>
+          <option>Pull Ups</options>
+          <option>Front Squats</options>
+          <option>Dumbell Press</options>
+        </font>
+        </select>
+      </h1>
+      <p>
+        <font color="white";
+        <label>Enter number of sets for this workout: <!-- Number of sets to input-->
+          <font color="black">
+          <input id="SetNumber" type="number" name="sets">
+        </font>
+        </label>
+      </font>
+      </p>
+      <p>
+        <font color="white">
+        <label>Enter number of reps for this workout: <!-- Number of reps to input-->
+          <font color="black">
+          <input id="RepNumber" type="number" name="reps">
+        </font>
+        </label>
+      </font>
+      </p>
+    </form>
+    <!-- <input type="submit" value="Add to Program"> -->
+    <!-- Button adds workout to program list -->
+    <input type ="button" id="programButton" onclick="createSetxRep()" value="Add to Program"></input>
+    <br>
+    <!-- Logout button takes user back to front page -->
+    <form action="index.html">
+      <input type="submit" value="Go Home" />
+    </form>
 
-        <div id="carousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators hidden-xs">
-              <li data-target="#carousel" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel" data-slide-to="1"></li>
-              <li data-target="#carousel" data-slide-to="2"></li>
-              <li data-target="#carousel" data-slide-to="3"></li>
-            </ol>
+    <!-- Categories for table -->
+    <font color="white">
+    <p>
+      <aside>
+        <table id="myProgram">
+          <tr>
+            <td>Workout</td>
+            <td>Sets</td>
+            <td>Reps</td>
+          </tr>
+        </table>
+      </aside>
+    </p>
+  </font>
+    <br>
+    
+    <br>  
+    <!-- Gets data from input and display in a table -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+      function createSetxRep(){
+        var table = document.getElementById("myProgram");
+        var row = table.insertRow(-1);
+        var workout = row.insertCell(0);
+        var set = row.insertCell(1);
+        var rep = row.insertCell(2);
+        var delButton = row.insertCell(3);
+        workout.innerHTML = document.getElementById("SelectedWorkout").value;
+        set.innerHTML = document.getElementById("SetNumber").value;
+        rep.innerHTML = document.getElementById("RepNumber").value;
+        //added a delete button into the table
+        delButton.innerHTML = '<input id="deleteButton" type="button" value="Delete" onclick="deleteRow(this)" >';
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox" id="carousel-inner">
-              <div class="item active" id="item">
-                <img src="images/motivation1.jpg" style="display:inline"  width="350" height="350" alt="...">
-                
-              </div>
-              <div class="item" id="item">
-                <img src="images/motivation2.jpg" style="display:inline" width="350" height="350" alt="...">
-                
-              </div>
-              <div class="item" id="item">
-                <img src="images/motivation3.jpg" style="display:inline" width="350" height="350" alt="...">
-               
-              </div>
-               <div class="item" id="item">
-                <img src="images/motivation4.jpg" style="display:inline" width="350" height="350" alt="...">
-              </div>
-            </div>
 
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-        </div>
+      }
+      //New delete function to delete elemenet dynamically from the table with am eventhandler to confirm deletion of element
+      function deleteRow(r) {
+        var i = r.parentNode.parentNode.rowIndex;
+        if (confirm("Are you sure?")) {
+            document.getElementById("myProgram").deleteRow(i); 
+          }
+          return false;
+          document.getElementById("myProgram").deleteRow(i);
+      }
+
+      
+    </script>
+  </body>
 </div>
 
 <!-- Second Container -->
@@ -180,25 +223,14 @@
 
 <!--
 <button class="upload-button" type="button">Upload Picture</button>
-
 <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
-
-
-
 <form id="upload" action="/uploads" method ="post" enctype="multipart/form-data">
-	<input type="file" name="photo"/>
-	<input type="submit" value="Upload Image" name="submit"/>
+  <input type="file" name="photo"/>
+  <input type="submit" value="Upload Image" name="submit"/>
 </form>
 -->
 
 
-<div id ="todoItems"><p>Testing</p></div>
-
-<form id="newItemForm" action="/todo" method="post" enctype="multipart/form-data">
-	<input type="text" id="newTodo" name="todoText" />
-	<input type="file" id="newFile" name="img" />
-	<input type="submit" value="New" />
-</form>
 
 
 
@@ -214,7 +246,7 @@
 
 </body>
 <script type="text/babel">
-	"use strict";
+  "use strict";
     $('.carousel').carousel({
         interval: 3000, //changes the speed
         pause: "hover"  
@@ -250,11 +282,11 @@
   firebase.initializeApp(config);
 
   
-	var fireRef = firebase.database().ref('todos');
+  var fireRef = firebase.database().ref('todos');
     
-	fireRef.on("child_added",function(v){
+  fireRef.on("child_added",function(v){
         createTodo(v.val().text,v.val().img);
-	});
+  });
   
     function createTodo(text, img)
     {
@@ -265,14 +297,14 @@
             );
         }
         else
-		{
+    {
             $('#todoItems').append(
                 '<div class="todoItem">'+text+'</div>'
             );
-		}
-	}
+    }
+  }
   
-	$('#newItemForm').submit(function(e)
+  $('#newItemForm').submit(function(e)
     {
         e.preventDefault();
         var formData = new FormData($("#newItemForm")[0]);
@@ -283,14 +315,15 @@
             data: formData,processData: false,
             contentType: false
 
-		});
-	});
+    });
+  });
   
 
   
-	$('#generator').hide();
-	$('#logout').hide();
-	$('#youare').hide();
+  $('#generator').hide();
+  $('#logout').hide();
+  
+
 
 
 var Generator = React.createClass({
@@ -306,22 +339,22 @@ var Generator = React.createClass({
     }
 });
 
-ReactDOM.render( <Generator /> , document.getElementById('generator'));	
+ReactDOM.render( <Generator /> , document.getElementById('generator')); 
   
 
 
 var Logout = React.createClass({
     onClick: function() {
         firebase.auth().signOut().then(function() {
-			alert("Successfully logged out.");
-			window.location.href = "index.html";
-		}, function(error) {
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			console.log("Error.");
-			console.log(errorCode, errorMessage);
-			alert(errorMessage);
-		});
+      alert("Successfully logged out.");
+      window.location.href = "index.html";
+    }, function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("Error.");
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
     },
     render: function() {
         return (
@@ -341,11 +374,11 @@ var Login = React.createClass({
     },
     handleClick: function() {
         if (this.state.showResults == false){
-			this.setState({ showResults: true });
-		}
-		else {
-			this.setState({ showResults: false});
-		}
+      this.setState({ showResults: true });
+    }
+    else {
+      this.setState({ showResults: false});
+    }
     },
     render: function() {
         return (
@@ -358,34 +391,27 @@ var Login = React.createClass({
 });
 
 var LoginResults = React.createClass({
-	onClick: function() {
-		
-		var email = document.getElementById("txtEmail").value;
-		var password = document.getElementById("txtPass").value;
-		
-		firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
-			console.log("User " + firebaseUser.uid + " logged in successfully!");
-			alert("Thank you for logging in!!");
-			$('#generator').show();
-			$('#logout').show();
-			$('#login').hide();
-			$('#register').hide();
-			
-			$('#youare').show();
-			var user = firebase.auth().currentUser;
-			document.getElementById("user").innerHTML = user.email;
-			
-			return firebaseUser;
-		}).catch(function(error) {
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			console.log("Error.");
-			console.log(errorCode, errorMessage);
-			alert(errorMessage);
-		});
+  onClick: function() {
+    
+    var email = document.getElementById("txtEmail").value;
+    var password = document.getElementById("txtPass").value;
+    
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
+      console.log("User " + firebaseUser.uid + " logged in successfully!");
+      alert("Thank you for logging in!!");
+      $('#generator').show();
+      $('#logout').show();
+      return firebaseUser;
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("Error.");
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
     },
-	
-	render: function() {
+  
+  render: function() {
         return (
             <div id="loginresults" className="login-results">
                 <h2>Login</h2>
@@ -414,11 +440,11 @@ var Register = React.createClass({
     },
     handleClick: function() {
         if (this.state.showResults == false){
-			this.setState({ showResults: true });
-		}
-		else {
-			this.setState({ showResults: false});
-		}
+      this.setState({ showResults: true });
+    }
+    else {
+      this.setState({ showResults: false});
+    }
     },
     render: function() {
         return (
@@ -448,51 +474,52 @@ var RegisterResults = React.createClass({
         );
     },
     onClick: function() {
-		
-		var email = document.getElementById("txtEmail").value;
-		var password = document.getElementById("txtPass").value;
-		
-		firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
-			console.log("User " + firebaseUser.uid + " created successfully!");
-			alert("Thank you for registering!!");
-			window.location.href = "index.html";
-			return firebaseUser;
-		}).catch(function(error) {
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			console.log("Error.");
-			console.log(errorCode, errorMessage);
-			alert(errorMessage);
-		});
-		
-		
-		
-		/*
+    
+    var email = document.getElementById("txtEmail").value;
+    var password = document.getElementById("txtPass").value;
+    
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
+      console.log("User " + firebaseUser.uid + " created successfully!");
+      alert("Thank you for registering!!");
+      window.location.href = "index.html";
+      return firebaseUser;
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("Error.");
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
+    
+    
+    
+    /*
         if (confirm("Thank you for registering!!")) {
-			var email = document.getElementById("txtEmail").value;
-			var password = document.getElementById("txtPass").value;
-			
-			firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
-				console.log("User " + firebaseUser.uid + " created successfully!");
-				return firebaseUser;
-			}).catch(function(error) {
-				var errorCode = error.code;
-				var errorMessage = error.message;
-				console.log("Error.");
-				console.log(errorCode, errorMessage);
-			});
-			
-			this.setState({ showResults: false });
-			
-		}
-		return false;
-		*/
+      var email = document.getElementById("txtEmail").value;
+      var password = document.getElementById("txtPass").value;
+      
+      firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
+        console.log("User " + firebaseUser.uid + " created successfully!");
+        return firebaseUser;
+      }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log("Error.");
+        console.log(errorCode, errorMessage);
+      });
+      
+      this.setState({ showResults: false });
+      
+    }
+    return false;
+    */
     } 
 });
 
 ReactDOM.render( <Register /> , document.getElementById('register'));
 
 
+      
 
   
  </script>
